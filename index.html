@@ -3,1143 +3,537 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Angel Sakura — Design & Technology</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<title>Angel Sakura — Portfolio Criativo</title>
 <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 <style>
-/* ============ ROOT ============ */
+/* ============ RESET & ROOT ============ */
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
 :root {
   --black: #0E1114;
-  --gray: #1D232A;
+  --gray-900: #161A1E;
+  --gray-800: #1D232A;
+  --gray-700: #2A323B;
+  --gray-400: #8B95A5;
+  --gray-200: #C8CED6;
   --offwhite: #EBE4DF;
   --rose: #D7B7A6;
   --terracotta: #B06D5A;
   --gold: #C9A96E;
-  --white: #FFFFFF;
-  --glass: rgba(235, 228, 223, 0.04);
-  --glass-border: rgba(235, 228, 223, 0.08);
+  --font: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
 }
-
-* { margin: 0; padding: 0; box-sizing: border-box; }
-
-html { scroll-behavior: auto; }
-
+html { scroll-behavior: smooth; }
 body {
+  font-family: var(--font);
   background: var(--black);
   color: var(--offwhite);
-  font-family: 'Poppins', -apple-system, BlinkMacSystemFont, sans-serif;
-  line-height: 1.6;
   overflow-x: hidden;
   -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
 }
 
-/* ============ LENIS ============ */
-html.lenis { height: auto; }
-.lenis.lenis-smooth { scroll-behavior: auto; }
-.lenis.lenis-smooth [data-lenis-prevent] { overscroll-behavior: contain; }
-.lenis.lenis-stopped { overflow: hidden; }
-.lenis.lenis-scrolling iframe { pointer-events: none; }
-
-/* ============ TYPOGRAPHY ============ */
-h1, h2, h3, h4 {
-  font-family: 'Montserrat', sans-serif;
-  font-weight: 600;
-  letter-spacing: -0.02em;
+/* ============ LOADER ============ */
+.loader {
+  position: fixed; inset: 0; z-index: 9999;
+  background: var(--black);
+  display: flex; align-items: center; justify-content: center;
+  flex-direction: column; gap: 24px;
+  transition: opacity 0.8s ease, visibility 0.8s ease;
 }
+.loader.hidden { opacity: 0; visibility: hidden; }
+.loader-ring { width: 48px; height: 48px; border: 2px solid var(--gray-700); border-top-color: var(--rose); border-radius: 50%; animation: spin 0.8s linear infinite; }
+@keyframes spin { to { transform: rotate(360deg); } }
+.loader p { color: var(--gray-400); font-size: 14px; letter-spacing: 2px; text-transform: uppercase; }
 
 /* ============ NAV ============ */
-.nav {
-  position: fixed;
-  top: 0; left: 0; right: 0;
-  z-index: 1000;
-  padding: 0 48px;
-  height: 72px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  background: rgba(14, 17, 20, 0.8);
-  backdrop-filter: blur(24px) saturate(1.5);
-  -webkit-backdrop-filter: blur(24px) saturate(1.5);
-  border-bottom: 1px solid var(--glass-border);
-  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+  padding: 16px 32px;
+  display: flex; align-items: center; justify-content: space-between;
+  transition: background 0.4s ease, backdrop-filter 0.4s ease;
 }
-
-.nav.scrolled {
-  background: rgba(14, 17, 20, 0.95);
-  box-shadow: 0 1px 0 rgba(235, 228, 223, 0.06);
+nav.scrolled {
+  background: rgba(14, 17, 20, 0.85);
+  backdrop-filter: blur(20px) saturate(1.5);
+  border-bottom: 1px solid rgba(215, 183, 166, 0.08);
 }
-
-.nav-logo {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  text-decoration: none;
-  color: var(--offwhite);
-  font-family: 'Montserrat', sans-serif;
-  font-weight: 600;
-  font-size: 1.1rem;
-  letter-spacing: -0.01em;
-}
-
-.nav-logo-dot {
-  width: 8px;
-  height: 8px;
-  border-radius: 50%;
-  background: var(--rose);
-  display: inline-block;
-}
-
-.nav-links {
-  display: flex;
-  align-items: center;
-  gap: 32px;
-  list-style: none;
-}
-
-.nav-links a {
-  color: rgba(235, 228, 223, 0.7);
-  text-decoration: none;
-  font-size: 0.85rem;
-  font-weight: 400;
-  transition: color 0.3s ease;
-  position: relative;
-  padding: 4px 0;
-}
-
-.nav-links a::after {
-  content: '';
-  position: absolute;
-  bottom: 0; left: 0;
-  width: 0;
-  height: 1px;
-  background: var(--rose);
-  transition: width 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-}
-
-.nav-links a:hover {
-  color: var(--offwhite);
-}
-
-.nav-links a:hover::after {
-  width: 100%;
-}
-
-.nav-cta {
-  background: var(--offwhite);
-  color: var(--black) !important;
-  padding: 8px 24px;
-  border-radius: 100px;
-  font-weight: 500;
-  font-size: 0.85rem;
-  transition: all 0.3s ease;
-}
-
-.nav-cta:hover {
-  background: var(--white) !important;
-  transform: scale(1.02);
-}
-
-.nav-cta::after { display: none !important; }
+.nav-logo { font-size: 18px; font-weight: 700; color: var(--offwhite); letter-spacing: -0.5px; }
+.nav-logo span { color: var(--rose); }
+.nav-links { display: flex; gap: 32px; list-style: none; }
+.nav-links a { color: var(--gray-400); text-decoration: none; font-size: 13px; font-weight: 500; letter-spacing: 0.5px; text-transform: uppercase; transition: color 0.3s; }
+.nav-links a:hover { color: var(--offwhite); }
 
 /* ============ HERO ============ */
 .hero {
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
+  min-height: 100vh; display: flex; align-items: center; justify-content: center;
+  position: relative; padding: 120px 32px 80px;
   text-align: center;
-  padding: 120px 24px 80px;
-  position: relative;
+  background: linear-gradient(135deg, var(--black) 0%, var(--gray-900) 50%, var(--black) 100%);
   overflow: hidden;
 }
-
-.hero-bg {
-  position: absolute;
-  top: 0; left: 0; right: 0; bottom: 0;
-  background: 
-    radial-gradient(ellipse 80% 60% at 50% -20%, rgba(183, 129, 114, 0.08), transparent),
-    radial-gradient(ellipse 60% 50% at 80% 80%, rgba(215, 183, 166, 0.05), transparent),
-    radial-gradient(ellipse 50% 40% at 20% 60%, rgba(176, 109, 90, 0.04), transparent);
-  pointer-events: none;
+.hero::before {
+  content: ''; position: absolute; top: -50%; left: -50%; width: 200%; height: 200%;
+  background: radial-gradient(ellipse at 30% 50%, rgba(215, 183, 166, 0.03) 0%, transparent 60%),
+              radial-gradient(ellipse at 70% 50%, rgba(176, 109, 90, 0.02) 0%, transparent 60%);
+  animation: ambient 20s ease-in-out infinite alternate;
 }
-
-.hero-subtitle {
-  font-family: 'Montserrat', sans-serif;
-  font-size: 0.85rem;
-  font-weight: 500;
-  letter-spacing: 0.3em;
-  text-transform: uppercase;
-  color: var(--rose);
-  margin-bottom: 24px;
-  opacity: 0;
-  transform: translateY(20px);
+@keyframes ambient { 0% { transform: translate(0, 0); } 100% { transform: translate(-5%, 5%); } }
+.hero-content { position: relative; z-index: 2; max-width: 800px; }
+.hero-badge {
+  display: inline-block; padding: 8px 20px; border-radius: 100px;
+  background: rgba(215, 183, 166, 0.1); border: 1px solid rgba(215, 183, 166, 0.2);
+  color: var(--rose); font-size: 12px; font-weight: 500; letter-spacing: 1px;
+  text-transform: uppercase; margin-bottom: 32px;
 }
-
-.hero-title {
-  font-size: clamp(3rem, 8vw, 6rem);
-  font-weight: 700;
-  line-height: 1.05;
-  letter-spacing: -0.04em;
-  color: var(--white);
-  margin-bottom: 24px;
-  opacity: 0;
-  transform: translateY(30px);
+.hero h1 {
+  font-size: clamp(40px, 8vw, 88px); font-weight: 800; line-height: 1.05;
+  color: var(--offwhite); letter-spacing: -2px; margin-bottom: 24px;
 }
-
-.hero-title em {
-  font-style: normal;
-  background: linear-gradient(135deg, var(--rose), var(--terracotta), var(--gold));
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
+.hero h1 span { background: linear-gradient(135deg, var(--offwhite), var(--rose)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+.hero p {
+  font-size: 18px; color: var(--gray-400); line-height: 1.7;
+  max-width: 600px; margin: 0 auto 40px; font-weight: 300;
 }
-
-.hero-desc {
-  font-size: clamp(1.05rem, 2vw, 1.25rem);
-  font-weight: 300;
-  color: rgba(235, 228, 223, 0.6);
-  max-width: 600px;
-  line-height: 1.7;
-  margin-bottom: 48px;
-  opacity: 0;
-  transform: translateY(20px);
+.hero-cta {
+  display: inline-flex; gap: 16px; flex-wrap: wrap; justify-content: center;
 }
-
-.hero-actions {
-  display: flex;
-  gap: 16px;
-  flex-wrap: wrap;
-  justify-content: center;
-  opacity: 0;
-  transform: translateY(20px);
+.btn {
+  padding: 14px 36px; border-radius: 12px; font-size: 14px; font-weight: 600;
+  text-decoration: none; transition: all 0.3s ease; letter-spacing: 0.3px;
+  display: inline-flex; align-items: center; gap: 8px;
 }
+.btn-primary { background: var(--rose); color: var(--black); }
+.btn-primary:hover { background: var(--terracotta); transform: translateY(-2px); box-shadow: 0 8px 32px rgba(215, 183, 166, 0.3); }
+.btn-outline { border: 1px solid var(--gray-700); color: var(--offwhite); }
+.btn-outline:hover { border-color: var(--rose); background: rgba(215, 183, 166, 0.1); transform: translateY(-2px); }
 
-.btn-primary {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  padding: 14px 36px;
-  background: var(--offwhite);
-  color: var(--black);
-  border-radius: 100px;
-  text-decoration: none;
-  font-weight: 500;
-  font-size: 0.95rem;
-  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-  border: none;
-  cursor: pointer;
-}
-
-.btn-primary:hover {
-  background: var(--white);
-  transform: scale(1.03);
-  box-shadow: 0 12px 40px rgba(215, 183, 166, 0.15);
-}
-
-.btn-secondary {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  padding: 14px 36px;
-  background: transparent;
-  color: var(--offwhite);
-  border-radius: 100px;
-  text-decoration: none;
-  font-weight: 400;
-  font-size: 0.95rem;
-  border: 1px solid rgba(235, 228, 223, 0.2);
-  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-  cursor: pointer;
-}
-
-.btn-secondary:hover {
-  border-color: var(--rose);
-  color: var(--rose);
-  transform: scale(1.03);
-}
-
-.hero-scroll {
-  position: absolute;
-  bottom: 40px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 8px;
-  opacity: 0;
-}
-
-.scroll-line {
-  width: 1px;
-  height: 60px;
-  background: linear-gradient(to bottom, rgba(235, 228, 223, 0.3), transparent);
-  animation: scrollPulse 2s ease-in-out infinite;
-}
-
-@keyframes scrollPulse {
-  0%, 100% { opacity: 0.3; transform: scaleY(1); }
-  50% { opacity: 0.8; transform: scaleY(1.2); }
-}
-
-.scroll-text {
-  font-size: 0.7rem;
-  letter-spacing: 0.2em;
-  text-transform: uppercase;
-  color: rgba(235, 228, 223, 0.3);
-}
-
-/* ============ SECTIONS ============ */
+/* ============ SECTION ============ */
 .section {
-  padding: 120px 24px;
-  position: relative;
+  padding: 100px 32px; position: relative;
 }
-
-.section-inner {
-  max-width: 1100px;
-  margin: 0 auto;
+.section-header {
+  text-align: center; margin-bottom: 64px;
 }
-
 .section-label {
-  font-family: 'Montserrat', sans-serif;
-  font-size: 0.8rem;
-  font-weight: 500;
-  letter-spacing: 0.3em;
-  text-transform: uppercase;
-  color: var(--rose);
-  margin-bottom: 16px;
+  display: inline-block; padding: 6px 16px; border-radius: 100px;
+  background: rgba(215, 183, 166, 0.08); border: 1px solid rgba(215, 183, 166, 0.15);
+  color: var(--rose); font-size: 11px; font-weight: 600; letter-spacing: 1.5px;
+  text-transform: uppercase; margin-bottom: 20px;
+}
+.section h2 {
+  font-size: clamp(28px, 4vw, 48px); font-weight: 700; color: var(--offwhite);
+  letter-spacing: -1px; margin-bottom: 16px;
+}
+.section-subtitle {
+  color: var(--gray-400); font-size: 16px; font-weight: 300; max-width: 500px; margin: 0 auto;
 }
 
-.section-title {
-  font-size: clamp(2rem, 4vw, 3.2rem);
-  font-weight: 700;
-  color: var(--white);
-  line-height: 1.1;
-  letter-spacing: -0.03em;
-  margin-bottom: 20px;
+/* ============ SEPARATOR ============ */
+.section-divider {
+  width: 100%; height: 1px;
+  background: linear-gradient(90deg, transparent, var(--gray-700), transparent);
 }
 
-.section-desc {
-  font-size: 1.1rem;
-  font-weight: 300;
-  color: rgba(235, 228, 223, 0.6);
-  max-width: 600px;
-  line-height: 1.8;
-  margin-bottom: 60px;
+/* ============ ARTES GRID (3D FLIP CARDS) ============ */
+.artes-grid {
+  display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 24px; max-width: 1200px; margin: 0 auto;
 }
-
-/* ============ ABOUT / TAGLINE ============ */
-.tagline-section {
-  padding: 80px 24px 120px;
-  text-align: center;
-  position: relative;
+.flip-card {
+  perspective: 1200px; height: 400px; cursor: pointer;
 }
-
-.tagline-section::before {
-  content: '';
-  position: absolute;
-  top: 0; left: 50%;
-  transform: translateX(-50%);
-  width: 1px;
-  height: 60px;
-  background: linear-gradient(to bottom, transparent, rgba(215, 183, 166, 0.3));
+.flip-card-inner {
+  position: relative; width: 100%; height: 100%;
+  transition: transform 0.7s cubic-bezier(0.4, 0, 0.2, 1);
+  transform-style: preserve-3d;
 }
-
-.tagline-big {
-  font-family: 'Montserrat', sans-serif;
-  font-size: clamp(1.8rem, 3.5vw, 2.8rem);
-  font-weight: 300;
-  color: var(--white);
-  line-height: 1.4;
-  max-width: 800px;
-  margin: 0 auto;
+.flip-card:hover .flip-card-inner { transform: rotateY(180deg); }
+.flip-card-front, .flip-card-back {
+  position: absolute; inset: 0; border-radius: 16px;
+  backface-visibility: hidden; overflow: hidden;
 }
-
-.tagline-big strong {
-  font-weight: 600;
-  background: linear-gradient(135deg, var(--rose), var(--terracotta));
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
+.flip-card-front {
+  background: var(--gray-900); border: 1px solid var(--gray-700);
+  display: flex; align-items: center; justify-content: center;
 }
+.flip-card-front img {
+  width: 100%; height: 100%; object-fit: cover;
+  transition: transform 0.5s ease;
+}
+.flip-card:hover .flip-card-front img { transform: scale(1.05); }
+.flip-card-back {
+  background: linear-gradient(135deg, var(--gray-900), var(--black));
+  border: 1px solid rgba(215, 183, 166, 0.3);
+  transform: rotateY(180deg);
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  padding: 32px; text-align: center;
+}
+.flip-card-back .numero { font-size: 48px; font-weight: 800; color: var(--rose); opacity: 0.3; margin-bottom: 8px; }
+.flip-card-back h3 { font-size: 18px; font-weight: 600; color: var(--offwhite); margin-bottom: 8px; }
+.flip-card-back p { font-size: 13px; color: var(--gray-400); line-height: 1.6; }
 
-/* ============ SERVICES ============ */
-.services-grid {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 2px;
-  background: rgba(235, 228, 223, 0.06);
-  border-radius: 20px;
+/* ============ VIDEOS GRID ============ */
+.videos-grid {
+  display: grid; grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+  gap: 20px; max-width: 1200px; margin: 0 auto;
+}
+.video-card {
+  border-radius: 16px; overflow: hidden;
+  background: var(--gray-900); border: 1px solid var(--gray-700);
+  transition: all 0.4s ease;
+}
+.video-card:hover { border-color: var(--rose); transform: translateY(-4px); box-shadow: 0 12px 48px rgba(215, 183, 166, 0.1); }
+.video-card iframe {
+  width: 100%; height: 100%; border: none;
+}
+.video-wrapper {
+  position: relative; width: 100%; padding-bottom: 56.25%; /* 16:9 */
   overflow: hidden;
 }
-
-.service-card {
-  background: var(--black);
-  padding: 48px 40px;
-  transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
-  position: relative;
-  overflow: hidden;
+.video-wrapper iframe {
+  position: absolute; top: 0; left: 0; width: 100%; height: 100%;
 }
+.video-info { padding: 16px 20px; }
+.video-info h4 { font-size: 14px; font-weight: 500; color: var(--offwhite); }
+.video-info p { font-size: 12px; color: var(--gray-400); margin-top: 4px; }
 
-.service-card::before {
-  content: '';
-  position: absolute;
-  top: 0; left: 0;
-  width: 100%; height: 100%;
-  background: linear-gradient(135deg, rgba(215, 183, 166, 0.03), transparent);
-  opacity: 0;
-  transition: opacity 0.5s ease;
+/* ============ ABOUT ============ */
+.about-section {
+  background: linear-gradient(180deg, var(--black), var(--gray-900));
+  padding: 100px 32px;
 }
-
-.service-card:hover::before {
-  opacity: 1;
+.about-content {
+  max-width: 800px; margin: 0 auto; text-align: center;
 }
-
-.service-card:hover {
-  background: var(--gray);
+.about-content h2 { font-size: 32px; font-weight: 700; color: var(--offwhite); margin-bottom: 24px; }
+.about-content p { color: var(--gray-400); font-size: 16px; line-height: 1.8; margin-bottom: 16px; }
+.about-tags {
+  display: flex; flex-wrap: wrap; gap: 12px; justify-content: center; margin-top: 32px;
 }
-
-.service-icon {
-  width: 48px;
-  height: 48px;
-  border-radius: 14px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 1.4rem;
-  margin-bottom: 20px;
-  background: rgba(215, 183, 166, 0.1);
-  border: 1px solid rgba(215, 183, 166, 0.15);
-}
-
-.service-card h3 {
-  font-size: 1.2rem;
-  color: var(--white);
-  margin-bottom: 12px;
-}
-
-.service-card p {
-  font-size: 0.9rem;
-  color: rgba(235, 228, 223, 0.55);
-  line-height: 1.7;
-}
-
-/* ============ PORTFOLIO CASES ============ */
-.cases-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 24px;
-}
-
-.case-card {
-  background: var(--gray);
-  border-radius: 20px;
-  overflow: hidden;
-  text-decoration: none;
-  display: block;
-  transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
-  border: 1px solid rgba(235, 228, 223, 0.06);
-  position: relative;
-}
-
-.case-card:hover {
-  transform: translateY(-8px);
-  border-color: rgba(215, 183, 166, 0.2);
-  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
-}
-
-.case-thumb {
-  width: 100%;
-  aspect-ratio: 16/10;
-  background: linear-gradient(135deg, rgba(215, 183, 166, 0.08), rgba(176, 109, 90, 0.08));
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 3rem;
-  position: relative;
-  overflow: hidden;
-}
-
-.case-thumb::after {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(to bottom, transparent 60%, rgba(14, 17, 20, 0.8));
-}
-
-.case-thumb-label {
-  position: absolute;
-  bottom: 16px;
-  left: 20px;
-  z-index: 2;
-  font-family: 'Montserrat', sans-serif;
-  font-size: 0.75rem;
-  letter-spacing: 0.2em;
-  text-transform: uppercase;
-  color: var(--rose);
-}
-
-.case-info {
-  padding: 24px;
-}
-
-.case-info h3 {
-  font-size: 1.15rem;
-  color: var(--white);
-  margin-bottom: 8px;
-}
-
-.case-info p {
-  font-size: 0.85rem;
-  color: rgba(235, 228, 223, 0.5);
-  line-height: 1.6;
-}
-
-/* ============ TECH PROJECTS ============ */
-.tech-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 16px;
-}
-
-.tech-card {
-  background: var(--gray);
-  border: 1px solid rgba(235, 228, 223, 0.06);
-  border-radius: 16px;
-  padding: 28px 24px;
-  text-decoration: none;
-  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-}
-
-.tech-card:hover {
-  border-color: rgba(215, 183, 166, 0.2);
-  transform: translateY(-4px);
-  background: linear-gradient(135deg, var(--gray), rgba(215, 183, 166, 0.04));
-}
-
-.tech-card-icon {
-  font-size: 1.5rem;
-  margin-bottom: 12px;
-}
-
-.tech-card h4 {
-  font-size: 0.95rem;
-  color: var(--white);
-  margin-bottom: 6px;
-}
-
-.tech-card p {
-  font-size: 0.8rem;
-  color: rgba(235, 228, 223, 0.5);
-  line-height: 1.5;
-}
-
-/* ============ SKILLS ============ */
-.skills-bar {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px;
-  justify-content: center;
-  padding: 60px 0;
-}
-
-.skill-pill {
-  padding: 8px 20px;
-  border-radius: 100px;
-  font-size: 0.8rem;
-  font-weight: 400;
-  color: rgba(235, 228, 223, 0.6);
-  background: rgba(235, 228, 223, 0.04);
-  border: 1px solid rgba(235, 228, 223, 0.08);
-  transition: all 0.3s ease;
-}
-
-.skill-pill:hover {
-  color: var(--rose);
-  border-color: rgba(215, 183, 166, 0.3);
-  background: rgba(215, 183, 166, 0.06);
-}
-
-/* ============ CTA FINAL ============ */
-.cta-section {
-  padding: 120px 24px;
-  text-align: center;
-  position: relative;
-  overflow: hidden;
-}
-
-.cta-section::before {
-  content: '';
-  position: absolute;
-  top: 0; left: 0; right: 0;
-  height: 1px;
-  background: linear-gradient(to right, transparent, rgba(215, 183, 166, 0.3), transparent);
-}
-
-.cta-big {
-  font-size: clamp(2rem, 4vw, 3.5rem);
-  font-weight: 700;
-  color: var(--white);
-  line-height: 1.2;
-  margin-bottom: 20px;
-  letter-spacing: -0.03em;
-}
-
-.cta-big em {
-  font-style: normal;
-  background: linear-gradient(135deg, var(--rose), var(--gold));
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-}
-
-.cta-desc {
-  font-size: 1.05rem;
-  font-weight: 300;
-  color: rgba(235, 228, 223, 0.5);
-  max-width: 500px;
-  margin: 0 auto 40px;
-  line-height: 1.7;
-}
-
-.cta-actions {
-  display: flex;
-  gap: 16px;
-  justify-content: center;
-  flex-wrap: wrap;
+.about-tags span {
+  padding: 8px 20px; border-radius: 100px;
+  background: rgba(215, 183, 166, 0.08); border: 1px solid rgba(215, 183, 166, 0.15);
+  color: var(--rose); font-size: 12px; font-weight: 500;
 }
 
 /* ============ FOOTER ============ */
 footer {
-  padding: 48px 24px;
-  text-align: center;
-  border-top: 1px solid rgba(235, 228, 223, 0.06);
+  padding: 48px 32px; text-align: center;
+  border-top: 1px solid var(--gray-800);
 }
-
-.footer-links {
-  display: flex;
-  justify-content: center;
-  gap: 32px;
-  margin-bottom: 24px;
-  flex-wrap: wrap;
-}
-
-.footer-links a {
-  color: rgba(235, 228, 223, 0.4);
-  text-decoration: none;
-  font-size: 0.8rem;
-  transition: color 0.3s ease;
-}
-
-.footer-links a:hover {
-  color: var(--rose);
-}
-
-.footer-copy {
-  font-size: 0.75rem;
-  color: rgba(235, 228, 223, 0.25);
-}
-
-/* ============ CARROSSEL INFINITO ============ */
-.carousel-wrap {
-  overflow: hidden;
-  width: 100%;
-  padding: 20px 0;
-  position: relative;
-}
-
-.carousel-wrap::before,
-.carousel-wrap::after {
-  content: '';
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  width: 100px;
-  z-index: 2;
-  pointer-events: none;
-}
-
-.carousel-wrap::before {
-  left: 0;
-  background: linear-gradient(to right, var(--black), transparent);
-}
-
-.carousel-wrap::after {
-  right: 0;
-  background: linear-gradient(to left, var(--black), transparent);
-}
-
-.carousel-track {
-  display: flex;
-  gap: 20px;
-  width: max-content;
-  animation: scroll 80s linear infinite;
-}
-
-.carousel-track:hover {
-  animation-play-state: paused;
-}
-
-.carousel-track img {
-  height: 280px;
-  width: auto;
-  border-radius: 12px;
-  object-fit: cover;
-  transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
-  cursor: pointer;
-}
-
-.carousel-track img:hover {
-  transform: scale(1.05);
-  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.5);
-}
-
-@keyframes scroll {
-  0% { transform: translateX(0); }
-  100% { transform: translateX(-50%); }
-}
+footer p { color: var(--gray-400); font-size: 13px; }
+footer a { color: var(--rose); text-decoration: none; }
+footer a:hover { text-decoration: underline; }
 
 /* ============ RESPONSIVE ============ */
 @media (max-width: 768px) {
-  .nav {
-    padding: 0 20px;
-    height: 64px;
-  }
-
-  .nav-links {
-    display: none;
-  }
-
-  .section {
-    padding: 80px 20px;
-  }
-
-  .services-grid {
-    grid-template-columns: 1fr;
-  }
-
-  .service-card {
-    padding: 32px 24px;
-  }
-
-  .cases-grid {
-    grid-template-columns: 1fr;
-  }
-
-  .tech-grid {
-    grid-template-columns: 1fr;
-  }
-
-  .hero {
-    padding: 100px 20px 60px;
-    min-height: 90vh;
-  }
-
-  .hero-actions {
-    flex-direction: column;
-    align-items: center;
-  }
-
-  .cta-section {
-    padding: 80px 20px;
-  }
+  nav { padding: 12px 20px; }
+  .nav-links { gap: 16px; }
+  .nav-links a { font-size: 11px; }
+  .section { padding: 60px 20px; }
+  .hero { padding: 100px 20px 60px; }
+  .artes-grid { grid-template-columns: 1fr; }
+  .flip-card { height: 340px; }
+  .videos-grid { grid-template-columns: 1fr; }
 }
-
 @media (max-width: 480px) {
-  .hero-title {
-    font-size: 2.5rem;
-  }
-
-  .tagline-big {
-    font-size: 1.5rem;
-  }
+  .nav-links a { font-size: 10px; letter-spacing: 0; }
+  .hero h1 { font-size: 32px; }
 }
 </style>
 </head>
 <body>
 
-<!-- ============ NAV ============ -->
-<nav class="nav" id="nav">
-  <a href="#" class="nav-logo">
-    <span class="nav-logo-dot"></span>
-    Angel Sakura
-  </a>
+<!-- LOADER -->
+<div class="loader" id="loader">
+  <div class="loader-ring"></div>
+  <p>Carregando</p>
+</div>
+
+<!-- NAV -->
+<nav id="nav">
+  <div class="nav-logo">Angel <span>Sakura</span></div>
   <ul class="nav-links">
+    <li><a href="#artes">Artes</a></li>
+    <li><a href="#videos">Vídeos</a></li>
     <li><a href="#sobre">Sobre</a></li>
-    <li><a href="#servicos">Serviços</a></li>
-    <li><a href="#portfolio">Portfólio</a></li>
-    <li><a href="#projetos">Projetos</a></li>
-    <li><a href="https://wa.me/5531973020244" target="_blank" class="nav-cta">Contato</a></li>
   </ul>
 </nav>
 
-<!-- ============ HERO ============ -->
-<section class="hero" id="hero">
-  <div class="hero-bg"></div>
-
-  <p class="hero-subtitle" id="hero-sub">Design &bull; Tecnologia &bull; Inovação</p>
-  <h1 class="hero-title" id="hero-title">
-    Criatividade que<br>
-    <em>transforma</em> marcas
-  </h1>
-  <p class="hero-desc" id="hero-desc">
-    Social Media & Web Designer especializada em branding, 
-    automação e design de alta performance. Unindo visão 
-    criativa com inteligência artificial e arquitetura cloud.
-  </p>
-  <div class="hero-actions" id="hero-actions">
-    <a href="#portfolio" class="btn-primary">
-      Ver portfólio
-      <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M8 3v10M5 10l3 3 3-3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
-    </a>
-    <a href="https://wa.me/5531973020244" target="_blank" class="btn-secondary">
-      Fale comigo
-    </a>
-  </div>
-
-  <div class="hero-scroll" id="hero-scroll">
-    <span class="scroll-text">Role</span>
-    <div class="scroll-line"></div>
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-content" data-aos="fade-up" data-aos-duration="1000">
+    <div class="hero-badge">Portfólio Criativo 2026</div>
+    <h1>Design &amp; <span>Tecnologia</span></h1>
+    <p>Criação visual de alto impacto. Artes estáticas e vídeos produzidos com inteligência artificial e curadoria criativa.</p>
+    <div class="hero-cta">
+      <a href="#artes" class="btn btn-primary">Ver Artes</a>
+      <a href="#videos" class="btn btn-outline">Ver Vídeos</a>
+    </div>
   </div>
 </section>
 
-<!-- ============ TAGLINE ============ -->
-<section class="tagline-section" id="sobre" data-aos="fade-up" data-aos-duration="1000">
-  <div class="section-inner">
-    <p class="tagline-big">
-      Design que comunica. <strong>Tecnologia que transforma.</strong><br>
-      Duas pontes que se encontram em cada projeto.
-    </p>
+<!-- ============ ARTES ESTÁTICAS ============ -->
+<section class="section" id="artes">
+  <div class="section-header" data-aos="fade-up">
+    <div class="section-label">Galeria</div>
+    <h2>Artes <span style="color:var(--rose)">Estáticas</span></h2>
+    <p class="section-subtitle">Passe o mouse sobre cada card para virar e ver detalhes</p>
   </div>
-</section>
 
-<!-- ============ SERVICES ============ -->
-<section class="section" id="servicos">
-  <div class="section-inner">
-    <p class="section-label" data-aos="fade-up" data-aos-duration="800">Especialidades</p>
-    <h2 class="section-title" data-aos="fade-up" data-aos-duration="800" data-aos-delay="100">O que eu faço</h2>
-    <p class="section-desc" data-aos="fade-up" data-aos-duration="800" data-aos-delay="200">
-      Da identidade visual à infraestrutura cloud — soluções completas 
-      para marcas que querem se destacar no digital.
-    </p>
-
-    <div class="services-grid" data-aos="fade-up" data-aos-duration="1000" data-aos-delay="300">
-      <div class="service-card">
-        <div class="service-icon">🎨</div>
-        <h3>Design & Branding</h3>
-        <p>Identidade visual completa, design para redes sociais, branding estratégico e mockups para campanhas de alto impacto.</p>
-      </div>
-      <div class="service-card">
-        <div class="service-icon">🌐</div>
-        <h3>Web Design</h3>
-        <p>Sites institucionais, landing pages e portfólios com design cinematográfico, animações CSS e performance excepcional.</p>
-      </div>
-      <div class="service-card">
-        <div class="service-icon">🤖</div>
-        <h3>Automação & IA</h3>
-        <p>Workflows inteligentes com N8N, agentes de IA personalizados e automação de processos para escalar resultados.</p>
-      </div>
-      <div class="service-card">
-        <div class="service-icon">☁️</div>
-        <h3>Cloud & Infraestrutura</h3>
-        <p>Arquitetura AWS com Terraform, deploy de aplicações e análise de dados com Power BI para decisões estratégicas.</p>
+  <div class="artes-grid">
+    <!-- Arte 01 -->
+    <div class="flip-card" data-aos="fade-up" data-aos-delay="0">
+      <div class="flip-card-inner">
+        <div class="flip-card-front">
+          <img src="https://share.zapia.com/pgkd650caanbcbb0v5gg2i" alt="Arte 01" loading="lazy">
+        </div>
+        <div class="flip-card-back">
+          <div class="numero">01</div>
+          <h3>Composição Visual</h3>
+          <p>Design criado com técnicas de composição avançada e paleta harmônica.</p>
+        </div>
       </div>
     </div>
-  </div>
-</section>
 
-<!-- ============ PORTFOLIO DESIGN ============ -->
-<section class="section" id="portfolio">
-  <div class="section-inner">
-    <p class="section-label" data-aos="fade-up" data-aos-duration="800">Portfólio</p>
-    <h2 class="section-title" data-aos="fade-up" data-aos-duration="800" data-aos-delay="100">Design em movimento</h2>
-    <p class="section-desc" data-aos="fade-up" data-aos-duration="800" data-aos-delay="200">
-      Artes e identidades visuais criadas para marcas reais.
-    </p>
-  </div>
+    <!-- Arte 02 -->
+    <div class="flip-card" data-aos="fade-up" data-aos-delay="100">
+      <div class="flip-card-inner">
+        <div class="flip-card-front">
+          <img src="https://share.zapia.com/b4dq76coc74oui9asdlagq" alt="Arte 02" loading="lazy">
+        </div>
+        <div class="flip-card-back">
+          <div class="numero">02</div>
+          <h3>Identidade Visual</h3>
+          <p>Branding com elementos modernos e tipografia sofisticada.</p>
+        </div>
+      </div>
+    </div>
 
-  <div class="carousel-wrap" data-aos="fade-up" data-aos-duration="1200">
-    <div class="carousel-track">
-      <img src="https://share.zapia.com/iycyf45hyxolv484m0wgtp" alt="Arte 1">
-      <img src="https://share.zapia.com/99h60mciwwgwlre3qsesy8" alt="Arte 2">
-      <img src="https://share.zapia.com/9xeux9ea5pue4annbtgsct" alt="Arte 3">
-      <img src="https://share.zapia.com/1hqh0ja50lw15ojg8arauj" alt="Arte 4">
-      <img src="https://share.zapia.com/6chsb2ff6i6ets3ybchsxe" alt="Arte 5">
-      <img src="https://share.zapia.com/82lnvtaag15hryk8jgt6nf" alt="Arte 6">
-      <img src="https://share.zapia.com/mcaizsb2qhbm3rvll7f8ln" alt="Arte 7">
-      <img src="https://share.zapia.com/knrjy7rlcm70qxk1xinubk" alt="Arte 8">
-      <img src="https://share.zapia.com/kd13t9xaoyz6c2mip0vpzs" alt="Arte 9">
-      <img src="https://share.zapia.com/z5yzfamsy79e8irl2xge9o" alt="Arte 10">
-      <img src="https://share.zapia.com/7ackdco5f3kr4h52t3loa7" alt="Arte 11">
-      <img src="https://share.zapia.com/vbc1tz84pzgrb6tyki4w07" alt="Arte 12">
-      <img src="https://share.zapia.com/zookeycez77yk16x5lnbsm" alt="Arte 13">
-      <img src="https://share.zapia.com/dhtf8e2eua9hbi748azkbz" alt="Arte 14">
-      <img src="https://share.zapia.com/duyeyi0qxn30f27q54tjk3" alt="Arte 15">
-      <img src="https://share.zapia.com/k2juupkyp3ypvzq6g9b01g" alt="Arte 16">
-      <img src="https://share.zapia.com/b8xo5h3enatydeg5i6aury" alt="Arte 17">
-      <img src="https://share.zapia.com/gti9vfvmdm7oxgp5wa1orx" alt="Arte 18">
-      <img src="https://share.zapia.com/iyvj4qro1vrm8z6i393vj6" alt="Arte 19">
-      <img src="https://share.zapia.com/q3tc3zouo0vlo4e5v4l0d3" alt="Arte 20">
-      <img src="https://share.zapia.com/roxj7pkahjqmid83y8wbxk" alt="Arte 21">
-      <img src="https://share.zapia.com/xcisi9ad26kexwggoe6civ" alt="Arte 22">
-      <img src="https://share.zapia.com/ry9n8aa2csug3ht3hrlfep" alt="Arte 23">
-      <img src="https://share.zapia.com/vjbxtk9i0d5ljklmpkk0oj" alt="Arte 24">
-      <img src="https://share.zapia.com/qkb63xb1vk4ilcli9f3t84" alt="Arte 25">
-      <!-- Duplicata para loop infinito -->
-      <img src="https://share.zapia.com/iycyf45hyxolv484m0wgtp" alt="Arte 1">
-      <img src="https://share.zapia.com/99h60mciwwgwlre3qsesy8" alt="Arte 2">
-      <img src="https://share.zapia.com/9xeux9ea5pue4annbtgsct" alt="Arte 3">
-      <img src="https://share.zapia.com/1hqh0ja50lw15ojg8arauj" alt="Arte 4">
-      <img src="https://share.zapia.com/6chsb2ff6i6ets3ybchsxe" alt="Arte 5">
-      <img src="https://share.zapia.com/82lnvtaag15hryk8jgt6nf" alt="Arte 6">
-      <img src="https://share.zapia.com/mcaizsb2qhbm3rvll7f8ln" alt="Arte 7">
-      <img src="https://share.zapia.com/knrjy7rlcm70qxk1xinubk" alt="Arte 8">
-      <img src="https://share.zapia.com/kd13t9xaoyz6c2mip0vpzs" alt="Arte 9">
-      <img src="https://share.zapia.com/z5yzfamsy79e8irl2xge9o" alt="Arte 10">
-      <img src="https://share.zapia.com/7ackdco5f3kr4h52t3loa7" alt="Arte 11">
-      <img src="https://share.zapia.com/vbc1tz84pzgrb6tyki4w07" alt="Arte 12">
-      <img src="https://share.zapia.com/zookeycez77yk16x5lnbsm" alt="Arte 13">
-      <img src="https://share.zapia.com/dhtf8e2eua9hbi748azkbz" alt="Arte 14">
-      <img src="https://share.zapia.com/duyeyi0qxn30f27q54tjk3" alt="Arte 15">
-      <img src="https://share.zapia.com/k2juupkyp3ypvzq6g9b01g" alt="Arte 16">
-      <img src="https://share.zapia.com/b8xo5h3enatydeg5i6aury" alt="Arte 17">
-      <img src="https://share.zapia.com/gti9vfvmdm7oxgp5wa1orx" alt="Arte 18">
-      <img src="https://share.zapia.com/iyvj4qro1vrm8z6i393vj6" alt="Arte 19">
-      <img src="https://share.zapia.com/q3tc3zouo0vlo4e5v4l0d3" alt="Arte 20">
-      <img src="https://share.zapia.com/roxj7pkahjqmid83y8wbxk" alt="Arte 21">
-      <img src="https://share.zapia.com/xcisi9ad26kexwggoe6civ" alt="Arte 22">
-      <img src="https://share.zapia.com/ry9n8aa2csug3ht3hrlfep" alt="Arte 23">
-      <img src="https://share.zapia.com/vjbxtk9i0d5ljklmpkk0oj" alt="Arte 24">
-      <img src="https://share.zapia.com/qkb63xb1vk4ilcli9f3t84" alt="Arte 25">
+    <!-- Arte 03 -->
+    <div class="flip-card" data-aos="fade-up" data-aos-delay="200">
+      <div class="flip-card-inner">
+        <div class="flip-card-front">
+          <img src="https://share.zapia.com/uveb3k1qcrow4rftc582b9" alt="Arte 03" loading="lazy">
+        </div>
+        <div class="flip-card-back">
+          <div class="numero">03</div>
+          <h3>Arte Digital</h3>
+          <p>Ilustração digital com tratamento de cor e textura únicos.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Arte 04 -->
+    <div class="flip-card" data-aos="fade-up" data-aos-delay="300">
+      <div class="flip-card-inner">
+        <div class="flip-card-front">
+          <img src="https://share.zapia.com/xgh20p7yr72ulr203g97bo" alt="Arte 04" loading="lazy">
+        </div>
+        <div class="flip-card-back">
+          <div class="numero">04</div>
+          <h3>Design Editorial</h3>
+          <p>Composição de peças com equilíbrio entre imagem e texto.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Arte 05 -->
+    <div class="flip-card" data-aos="fade-up" data-aos-delay="0">
+      <div class="flip-card-inner">
+        <div class="flip-card-front">
+          <img src="https://share.zapia.com/52ne4t4ms10b3wdavepo7v" alt="Arte 05" loading="lazy">
+        </div>
+        <div class="flip-card-back">
+          <div class="numero">05</div>
+          <h3>Collage Moderna</h3>
+          <p>Montagem criativa com sobreposição de elementos e fotografia.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Arte 06 -->
+    <div class="flip-card" data-aos="fade-up" data-aos-delay="100">
+      <div class="flip-card-inner">
+        <div class="flip-card-front">
+          <img src="https://share.zapia.com/2pqmwaogas43ps65uvv4xj" alt="Arte 06" loading="lazy">
+        </div>
+        <div class="flip-card-back">
+          <div class="numero">06</div>
+          <h3>Tipografia Criativa</h3>
+          <p>Lettering e tipografia como elemento central do design.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Arte 07 -->
+    <div class="flip-card" data-aos="fade-up" data-aos-delay="200">
+      <div class="flip-card-inner">
+        <div class="flip-card-front">
+          <img src="https://share.zapia.com/u0ne6gno0uj52vnsu1kkip" alt="Arte 07" loading="lazy">
+        </div>
+        <div class="flip-card-back">
+          <div class="numero">07</div>
+          <h3>Conceito Visual</h3>
+          <p>Arte conceitual com storytelling visual e atmosfera única.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Arte 08 -->
+    <div class="flip-card" data-aos="fade-up" data-aos-delay="300">
+      <div class="flip-card-inner">
+        <div class="flip-card-front">
+          <img src="https://share.zapia.com/ky2tdpayp03e5132y6l2ku" alt="Arte 08" loading="lazy">
+        </div>
+        <div class="flip-card-back">
+          <div class="numero">08</div>
+          <h3>Peça Finalizada</h3>
+          <p>Arte final com tratamento de cor, textura e acabamento profissional.</p>
+        </div>
+      </div>
     </div>
   </div>
 </section>
 
-<!-- ============ CASES RECENTES ============ -->
-<section class="section">
-  <div class="section-inner">
-    <p class="section-label" data-aos="fade-up" data-aos-duration="800">Cases</p>
-    <h2 class="section-title" data-aos="fade-up" data-aos-duration="800" data-aos-delay="100">Projetos em destaque</h2>
-    <p class="section-desc" data-aos="fade-up" data-aos-duration="800" data-aos-delay="200">
-      Sites institucionais e landing pages com design cinematográfico.
-    </p>
+<div class="section-divider"></div>
 
-    <div class="cases-grid">
-      <a href="https://site.zapia.com/pzmd48jd" target="_blank" class="case-card" data-aos="fade-up" data-aos-duration="800" data-aos-delay="200">
-        <div class="case-thumb">
-          ☕
-          <span class="case-thumb-label">Landing Page</span>
-        </div>
-        <div class="case-info">
-          <h3>Bodrin Café</h3>
-          <p>Cafeteria artesanal — identidade visual própria com design acolhedor e animações suaves de scroll.</p>
-        </div>
-      </a>
+<!-- ============ VÍDEOS ============ -->
+<section class="section" id="videos">
+  <div class="section-header" data-aos="fade-up">
+    <div class="section-label">Motion</div>
+    <h2>Vídeos <span style="color:var(--rose)">MP4</span></h2>
+    <p class="section-subtitle">Peças em movimento criadas com IA e edição profissional</p>
+  </div>
 
-      <a href="https://site.zapia.com/f96nfhb2" target="_blank" class="case-card" data-aos="fade-up" data-aos-duration="800" data-aos-delay="300">
-        <div class="case-thumb">
-          🧘
-          <span class="case-thumb-label">Landing Page</span>
-        </div>
-        <div class="case-info">
-          <h3>Estúdio Lótus</h3>
-          <p>Yoga & bem-estar — design sereno com glassmorphism e tipografia elegante.</p>
-        </div>
-      </a>
+  <div class="videos-grid">
+    <div class="video-card" data-aos="fade-up" data-aos-delay="0">
+      <div class="video-wrapper">
+        <iframe src="https://drive.google.com/file/d/1DxPIDPvSs8gATuydMQhhoqu36k1Vcte7/preview" allow="autoplay; encrypted-media" allowfullscreen loading="lazy"></iframe>
+      </div>
+      <div class="video-info"><h4>Vídeo 01</h4><p>Motion design</p></div>
+    </div>
+    <div class="video-card" data-aos="fade-up" data-aos-delay="100">
+      <div class="video-wrapper">
+        <iframe src="https://drive.google.com/file/d/147uf_Ik1OeXls-M_CXA_hS8pUez-rJVO/preview" allow="autoplay; encrypted-media" allowfullscreen loading="lazy"></iframe>
+      </div>
+      <div class="video-info"><h4>Vídeo 02</h4><p>Motion design</p></div>
+    </div>
+    <div class="video-card" data-aos="fade-up" data-aos-delay="200">
+      <div class="video-wrapper">
+        <iframe src="https://drive.google.com/file/d/1t2Q3z8RM5SNNRyfEQA2cvSatg-spVxZa/preview" allow="autoplay; encrypted-media" allowfullscreen loading="lazy"></iframe>
+      </div>
+      <div class="video-info"><h4>Vídeo 03</h4><p>Motion design</p></div>
+    </div>
+    <div class="video-card" data-aos="fade-up" data-aos-delay="300">
+      <div class="video-wrapper">
+        <iframe src="https://drive.google.com/file/d/1MfoCAyxyay-lc-_SLty3SRRiCPMHEhso/preview" allow="autoplay; encrypted-media" allowfullscreen loading="lazy"></iframe>
+      </div>
+      <div class="video-info"><h4>Vídeo 04</h4><p>Motion design</p></div>
+    </div>
+    <div class="video-card" data-aos="fade-up" data-aos-delay="0">
+      <div class="video-wrapper">
+        <iframe src="https://drive.google.com/file/d/1oy_LsCrYbqZvSKFRPTMROHAmg9VNyadC/preview" allow="autoplay; encrypted-media" allowfullscreen loading="lazy"></iframe>
+      </div>
+      <div class="video-info"><h4>Vídeo 05</h4><p>Motion design</p></div>
+    </div>
+    <div class="video-card" data-aos="fade-up" data-aos-delay="100">
+      <div class="video-wrapper">
+        <iframe src="https://drive.google.com/file/d/1pKXc3_6IVNHJFifTPJQzMzdULOKJTv0V/preview" allow="autoplay; encrypted-media" allowfullscreen loading="lazy"></iframe>
+      </div>
+      <div class="video-info"><h4>Vídeo 06</h4><p>Motion design</p></div>
+    </div>
+    <div class="video-card" data-aos="fade-up" data-aos-delay="200">
+      <div class="video-wrapper">
+        <iframe src="https://drive.google.com/file/d/1--PEvcG_FPjpZu6xURnKi7hLbxLAXGll/preview" allow="autoplay; encrypted-media" allowfullscreen loading="lazy"></iframe>
+      </div>
+      <div class="video-info"><h4>Vídeo 07</h4><p>Motion design</p></div>
+    </div>
+    <div class="video-card" data-aos="fade-up" data-aos-delay="300">
+      <div class="video-wrapper">
+        <iframe src="https://drive.google.com/file/d/1V16IR8z71WgoyLynvV2EwAkfKuCdMf-X/preview" allow="autoplay; encrypted-media" allowfullscreen loading="lazy"></iframe>
+      </div>
+      <div class="video-info"><h4>Vídeo 08</h4><p>Motion design</p></div>
+    </div>
+    <div class="video-card" data-aos="fade-up" data-aos-delay="0">
+      <div class="video-wrapper">
+        <iframe src="https://drive.google.com/file/d/1rJlyR9pqvxg2G5mTnxex8HV-Ca43sJGl/preview" allow="autoplay; encrypted-media" allowfullscreen loading="lazy"></iframe>
+      </div>
+      <div class="video-info"><h4>Vídeo 09</h4><p>Motion design</p></div>
+    </div>
+    <div class="video-card" data-aos="fade-up" data-aos-delay="100">
+      <div class="video-wrapper">
+        <iframe src="https://drive.google.com/file/d/1SDJkh0u1tY0WRQKe5tn_MPY0s7U230IP/preview" allow="autoplay; encrypted-media" allowfullscreen loading="lazy"></iframe>
+      </div>
+      <div class="video-info"><h4>Vídeo 10</h4><p>Motion design</p></div>
+    </div>
+    <div class="video-card" data-aos="fade-up" data-aos-delay="200">
+      <div class="video-wrapper">
+        <iframe src="https://drive.google.com/file/d/1v-3AGfm-AgnaSmTQDYQ8XJMDeVGcd0ZH/preview" allow="autoplay; encrypted-media" allowfullscreen loading="lazy"></iframe>
+      </div>
+      <div class="video-info"><h4>Vídeo 11</h4><p>Motion design</p></div>
+    </div>
+    <div class="video-card" data-aos="fade-up" data-aos-delay="300">
+      <div class="video-wrapper">
+        <iframe src="https://drive.google.com/file/d/1vLds9xBOVKdQXiT9OC8Wn0nfGhbfVCn7/preview" allow="autoplay; encrypted-media" allowfullscreen loading="lazy"></iframe>
+      </div>
+      <div class="video-info"><h4>Vídeo 12</h4><p>Motion design</p></div>
     </div>
   </div>
 </section>
 
-<!-- ============ TECH PROJECTS ============ -->
-<section class="section" id="projetos">
-  <div class="section-inner">
-    <p class="section-label" data-aos="fade-up" data-aos-duration="800">Open Source</p>
-    <h2 class="section-title" data-aos="fade-up" data-aos-duration="800" data-aos-delay="100">Projetos de tecnologia</h2>
-    <p class="section-desc" data-aos="fade-up" data-aos-duration="800" data-aos-delay="200">
-      Repositórios públicos que mostram minha evolução como desenvolvedora.
-    </p>
+<div class="section-divider"></div>
 
-    <div class="tech-grid">
-      <a href="https://github.com/Angelsk2207/horus-tech" target="_blank" class="tech-card" data-aos="fade-up" data-aos-duration="600" data-aos-delay="100">
-        <div class="tech-card-icon">☁️</div>
-        <h4>Horus Tech</h4>
-        <p>Arquitetura Cloud de alta escalabilidade com Terraform e AWS.</p>
-      </a>
-      <a href="https://github.com/Angelsk2207/AngelOS" target="_blank" class="tech-card" data-aos="fade-up" data-aos-duration="600" data-aos-delay="200">
-        <div class="tech-card-icon">💻</div>
-        <h4>AngelOS</h4>
-        <p>Sistema Operacional Adaptativo modular com IA nativa integrada.</p>
-      </a>
-      <a href="https://github.com/Angelsk2207/Anjo-X" target="_blank" class="tech-card" data-aos="fade-up" data-aos-duration="600" data-aos-delay="300">
-        <div class="tech-card-icon">🤖</div>
-        <h4>Anjo-X</h4>
-        <p>IA gratuita baseada em modelos avançados de raciocínio e linguagem.</p>
-      </a>
-      <a href="https://github.com/Angelsk2207/Sakura.ai" target="_blank" class="tech-card" data-aos="fade-up" data-aos-duration="600" data-aos-delay="100">
-        <div class="tech-card-icon">🌸</div>
-        <h4>Sakura.ai</h4>
-        <p>Plataforma de IA para todos, desenvolvida com React e APIs modernas.</p>
-      </a>
-      <a href="https://github.com/Angelsk2207/ai-data-scientist-agent" target="_blank" class="tech-card" data-aos="fade-up" data-aos-duration="600" data-aos-delay="200">
-        <div class="tech-card-icon">📊</div>
-        <h4>AI Data Scientist</h4>
-        <p>Agente para pesquisa e análise automática de dados corporativos.</p>
-      </a>
-      <a href="https://github.com/Angelsk2207" target="_blank" class="tech-card" data-aos="fade-up" data-aos-duration="600" data-aos-delay="300">
-        <div class="tech-card-icon">📁</div>
-        <h4>+ Repositórios</h4>
-        <p>Veja todos os projetos no meu GitHub profissional.</p>
-      </a>
+<!-- ============ SOBRE ============ -->
+<section class="about-section" id="sobre">
+  <div class="about-content" data-aos="fade-up">
+    <h2>Angel <span style="color:var(--rose)">Sakura</span></h2>
+    <p>Agência de Design e Tecnologia especializada em criar conteúdo visual de alto impacto para marcas que querem se destacar no digital.</p>
+    <p>Unimos criatividade visual com inteligência artificial para produzir artes, vídeos e estratégias que convertem.</p>
+    <div class="about-tags">
+      <span>Design Gráfico</span>
+      <span>Motion Design</span>
+      <span>Identidade Visual</span>
+      <span>Social Media</span>
+      <span>IA Criativa</span>
+      <span>Branding</span>
     </div>
   </div>
 </section>
 
-<!-- ============ SKILLS ============ -->
-<section class="section" data-aos="fade-up" data-aos-duration="1000">
-  <div class="section-inner">
-    <div class="skills-bar">
-      <span class="skill-pill">AWS Cloud</span>
-      <span class="skill-pill">Terraform</span>
-      <span class="skill-pill">N8N</span>
-      <span class="skill-pill">Python</span>
-      <span class="skill-pill">Adobe Suite</span>
-      <span class="skill-pill">Canva</span>
-      <span class="skill-pill">IA & Prompts</span>
-      <span class="skill-pill">Git/GitHub</span>
-      <span class="skill-pill">Power BI</span>
-      <span class="skill-pill">CSS Avançado</span>
-      <span class="skill-pill">HTML/CSS</span>
-      <span class="skill-pill">GSAP</span>
-    </div>
-  </div>
-</section>
-
-<!-- ============ CTA ============ -->
-<section class="cta-section" data-aos="fade-up" data-aos-duration="1000">
-  <h2 class="cta-big">Vamos criar algo <em>extraordinário</em>?</h2>
-  <p class="cta-desc">Transforme sua marca com design que comunica e tecnologia que transforma.</p>
-  <div class="cta-actions">
-    <a href="https://wa.me/5531973020244" target="_blank" class="btn-primary">
-      Fale comigo no WhatsApp
-      <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M8 3v10M5 10l3 3 3-3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
-    </a>
-    <a href="https://github.com/Angelsk2207" target="_blank" class="btn-secondary">
-      GitHub
-      <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M5 8h6M8 5v6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
-    </a>
-  </div>
-</section>
-
-<!-- ============ FOOTER ============ -->
+<!-- FOOTER -->
 <footer>
-  <div class="footer-links">
-    <a href="https://wa.me/5531973020244" target="_blank">WhatsApp</a>
-    <a href="https://github.com/Angelsk2207" target="_blank">GitHub</a>
-    <a href="https://linkedin.com/in/" target="_blank">LinkedIn</a>
-  </div>
-  <p class="footer-copy">© 2026 Angel Sakura — Design & Technology. Todos os direitos reservados.</p>
+  <p>© 2026 <a href="https://Angelsk2207.github.io">Angel Sakura</a> — Design &amp; Technology</p>
 </footer>
 
-<!-- ============ SCRIPTS ============ -->
 <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-<script src="https://cdn.jsdelivr.net/gh/studio-freight/lenis@1.0.29/bundled/lenis.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
-
 <script>
-document.addEventListener('DOMContentLoaded', function() {
-  // ========== LENIS (Smooth Scroll) ==========
-  const lenis = new Lenis({
-    duration: 1.8,
-    easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
-    orientation: 'vertical',
-    smoothWheel: true,
-    wheelMultiplier: 0.8,
-    touchMultiplier: 1.5,
-  });
+// ============ LOADER ============
+window.addEventListener('load', () => {
+  setTimeout(() => {
+    document.getElementById('loader').classList.add('hidden');
+  }, 600);
+});
 
-  lenis.on('scroll', ScrollTrigger.update);
+// ============ AOS ============
+AOS.init({
+  duration: 800,
+  once: true,
+  offset: 100,
+  easing: 'ease-out-cubic'
+});
 
-  // Connect Lenis + GSAP ScrollTrigger
-  gsap.ticker.add((time) => { lenis.raf(time * 1000); });
-  gsap.ticker.lagSmoothing(0);
+// ============ NAV SCROLL ============
+const nav = document.getElementById('nav');
+window.addEventListener('scroll', () => {
+  nav.classList.toggle('scrolled', window.scrollY > 50);
+});
 
-  // ========== AOS (Fade-in on Scroll) ==========
-  AOS.init({
-    once: true,
-    duration: 1000,
-    easing: 'cubic-bezier(0.16, 1, 0.3, 1)',
-    offset: 120,
-  });
-
-  // ========== GSAP HERO ANIMATION ==========
-  const heroTL = gsap.timeline({ defaults: { ease: 'power3.out' } });
-
-  heroTL
-    .to('#hero-sub', { 
-      opacity: 1, y: 0, duration: 1,
-      scrollTrigger: { trigger: '#hero', start: 'top 80%' }
-    }, 0)
-    .to('#hero-title', { 
-      opacity: 1, y: 0, duration: 1.2 
-    }, 0.3)
-    .to('#hero-desc', { 
-      opacity: 1, y: 0, duration: 1 
-    }, 0.6)
-    .to('#hero-actions', { 
-      opacity: 1, y: 0, duration: 0.8 
-    }, 0.9)
-    .to('#hero-scroll', { 
-      opacity: 1, duration: 0.8 
-    }, 1.3);
-
-  // ========== NAV SCROLL EFFECT ==========
-  const nav = document.getElementById('nav');
-  
-  lenis.on('scroll', (e) => {
-    if (e.animatedScroll > 80) {
-      nav.classList.add('scrolled');
-    } else {
-      nav.classList.remove('scrolled');
-    }
-  });
-
-  // ========== SMOOTH NAV LINKS ==========
-  document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-    anchor.addEventListener('click', function(e) {
-      e.preventDefault();
-      const target = document.querySelector(this.getAttribute('href'));
-      if (target) {
-        lenis.scrollTo(target, { offset: -80, duration: 1.5 });
-      }
-    });
-  });
-
-  // ========== SKILL PILLS STAGGER ==========
-  gsap.from('.skill-pill', {
-    scrollTrigger: {
-      trigger: '.skills-bar',
-      start: 'top 85%',
-    },
-    opacity: 0,
-    scale: 0.8,
-    stagger: 0.05,
-    duration: 0.6,
-    ease: 'back.out(1.7)',
-  });
-
-  // ========== SERVICE CARDS STAGGER ==========
-  gsap.from('.service-card', {
-    scrollTrigger: {
-      trigger: '.services-grid',
-      start: 'top 80%',
-    },
-    opacity: 0,
-    y: 40,
-    stagger: 0.1,
-    duration: 0.8,
-    ease: 'power3.out',
+// ============ SMOOTH SCROLL ============
+document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+  anchor.addEventListener('click', function(e) {
+    e.preventDefault();
+    document.querySelector(this.getAttribute('href')).scrollIntoView({ behavior: 'smooth' });
   });
 });
 </script>
