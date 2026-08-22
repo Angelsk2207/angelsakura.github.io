@@ -169,6 +169,25 @@ footer a { color: var(--rose); text-decoration: none; }
 #particles-js {
   position: fixed; inset: 0; z-index: -1; pointer-events: none;
 }
+
+/* UPGRADE — direção editorial premium personalizada para Angel Sakura */
+:root{--black:#f7f6f2;--gray-900:#ffffff;--gray-800:#e8e5df;--gray-700:#d7d2ca;--gray-400:#6e6a65;--gray-200:#292724;--offwhite:#171614;--rose:#b56e5d;--terracotta:#8e4d40;--gold:#b28a52;--font:'Inter',-apple-system,BlinkMacSystemFont,sans-serif}
+body{background:var(--black);color:var(--offwhite)}
+nav{padding:26px 5vw;color:var(--offwhite)}
+nav.scrolled{background:rgba(247,246,242,.88);border-bottom:1px solid var(--gray-800);box-shadow:0 5px 25px rgba(30,25,20,.04)}
+nav .logo{letter-spacing:-1px} nav .nav-links a{color:var(--gray-400)} nav .nav-links a:hover{color:var(--offwhite)}
+.hero{min-height:92vh;align-items:flex-start;text-align:left;padding:180px 8vw 100px;background:linear-gradient(120deg,#f7f6f2 0%,#f7f6f2 62%,#eee9e2 100%)}
+.hero::before{background:radial-gradient(circle at 78% 38%,rgba(181,110,93,.18),transparent 27%),radial-gradient(circle at 90% 80%,rgba(178,138,82,.11),transparent 24%)}
+.hero h1{max-width:900px;font-size:clamp(54px,9vw,132px);letter-spacing:-.075em;line-height:.9;margin-bottom:34px;z-index:1}
+.hero h1 span{color:var(--rose)} .hero p{max-width:540px;font-size:clamp(16px,1.8vw,21px);line-height:1.55;color:var(--gray-400);margin-bottom:36px;z-index:1}
+.hero .cta{background:var(--offwhite);color:var(--black);border-radius:4px;padding:17px 27px;z-index:1}.hero .cta:hover{background:var(--rose);box-shadow:0 10px 30px rgba(181,110,93,.22)}
+.hero:after{content:'ANGEL SAKURA / DESIGN + TECH';position:absolute;right:7vw;bottom:70px;color:var(--gray-400);font-size:10px;letter-spacing:2px;writing-mode:vertical-rl;opacity:.8}
+.section{max-width:1400px;padding:130px 6vw}.section-header{text-align:left;margin-bottom:48px;display:grid;grid-template-columns:1fr 2fr;align-items:end;gap:30px}.section-header .tag{justify-self:start;background:transparent;border:1px solid var(--gray-700);color:var(--terracotta);padding:7px 12px;border-radius:2px}.section-header h2{font-size:clamp(34px,5vw,70px);letter-spacing:-.07em}.section-header p{grid-column:2;color:var(--gray-400);line-height:1.6}
+.artes-grid{grid-template-columns:repeat(12,1fr);gap:16px;max-width:none}.flip-card{grid-column:span 4;height:470px}.flip-card:nth-child(4),.flip-card:nth-child(5){grid-column:span 6}.flip-card-front,.flip-card-back{border-radius:3px}.flip-card-front{border-color:var(--gray-700);background:#fff}.flip-card-back{background:var(--offwhite);border:0}.flip-card-back h3,.flip-card-back p{color:#f7f6f2}.flip-card-back p{color:#b9b4ae}.flip-card-back .numero{color:var(--rose)}
+.videos-grid{max-width:none;grid-template-columns:repeat(3,1fr);gap:16px}.video-card{border-radius:3px;background:#fff;border:1px solid var(--gray-700)}.video-card:hover{border-color:var(--rose);box-shadow:0 18px 40px rgba(40,30,20,.1)}.video-card .info{padding:18px 20px}.video-card .info h4{color:var(--offwhite)}.video-card .info p{color:var(--gray-400)}
+.about-content{gap:90px}.about-text h3{font-size:clamp(28px,4vw,54px);letter-spacing:-.06em}.about-text p{color:var(--gray-400)}.stat{border-radius:3px;background:#fff;border-color:var(--gray-700)}.stat .num{color:var(--rose)}
+footer{border-color:var(--gray-800);color:var(--gray-400)}
+@media(max-width:768px){.hero{padding:150px 24px 80px}.hero:after{display:none}.section{padding:80px 20px}.section-header{display:block}.section-header p{margin-top:16px}.flip-card,.flip-card:nth-child(4),.flip-card:nth-child(5){grid-column:span 12;height:390px}.videos-grid{grid-template-columns:1fr}.about-content{gap:35px}}
 </style>
 </head>
 <body>
@@ -188,9 +207,9 @@ footer a { color: var(--rose); text-decoration: none; }
 
 <!-- HERO -->
 <section class="hero">
-  <h1 data-aos="fade-up" data-aos-duration="1000">Design &<br><span>Tecnologia</span></h1>
-  <p data-aos="fade-up" data-aos-delay="200" data-aos-duration="1000">Portfólio criativo de artes visuais, motion design e identidade visual. Cada projeto conta uma história.</p>
-  <a href="#artes" class="cta" data-aos="fade-up" data-aos-delay="400">Ver Portfólio ↓</a>
+  <h1 data-aos="fade-up" data-aos-duration="1000">Design que<br><span>deixa marca.</span></h1>
+  <p data-aos="fade-up" data-aos-delay="200" data-aos-duration="1000">Web design, direção visual e tecnologia para marcas que querem ser lembradas. Uma experiência pensada nos detalhes — da primeira impressão ao último clique.</p>
+  <a href="#artes" class="cta" data-aos="fade-up" data-aos-delay="400">Explorar projetos ↓</a>
   <div class="scroll-indicator"></div>
 </section>
 
@@ -199,7 +218,7 @@ footer a { color: var(--rose); text-decoration: none; }
   <div class="section-header" data-aos="fade-up">
     <div class="tag">Galeria</div>
     <h2>Artes Estáticas</h2>
-    <p>Designs criados com técnicas de composição avançada — passe o mouse para ver detalhes.</p>
+    <p>Uma seleção de identidades, campanhas e experiências visuais criadas para comunicar com clareza e personalidade.</p>
   </div>
   <div class="artes-grid">
     <div class="flip-card" data-aos="fade-up" data-aos-delay="0">
@@ -329,13 +348,13 @@ footer a { color: var(--rose); text-decoration: none; }
   <div class="section-header" data-aos="fade-up">
     <div class="tag">Sobre</div>
     <h2>Angel Sakura</h2>
-    <p>Design, tecnologia e criatividade unidos em cada projeto.</p>
+    <p>Design estratégico, estética e tecnologia unidos para criar presença.</p>
   </div>
   <div class="about-content">
     <div class="about-text" data-aos="fade-right">
-      <h3>Criatividade que inspira</h3>
-      <p>Especialista em design visual, motion graphics e identidade de marca. Crio peças que comunicam, emocionam e convertem.</p>
-      <p>Combinando técnicas de design tradicionais com ferramentas de IA, entrego resultados que se destacam em qualquer plataforma.</p>
+      <h3>Uma presença impossível de ignorar</h3>
+      <p>Sou Jessica Gaya, da Angel Sakura. Transformo ideias em experiências visuais claras, marcantes e prontas para o mundo digital.</p>
+      <p>Meu processo combina direção criativa, web design, motion e tecnologia — com ferramentas de IA quando elas tornam o resultado melhor, sem perder a intenção humana.</p>
     </div>
     <div class="about-stats" data-aos="fade-left">
       <div class="stat"><div class="num">50+</div><div class="label">Projetos</div></div>
@@ -347,7 +366,7 @@ footer a { color: var(--rose); text-decoration: none; }
 
 <!-- FOOTER -->
 <footer>
-  <p>© 2026 Angel Sakura — Design & Technology. Feito com ❤️</p>
+  <p>© 2026 Angel Sakura — Design & Technology. Belo Horizonte, MG.</p>
 </footer>
 
 <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
